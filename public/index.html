@@ -3,501 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Autos </title>
+    <title>Catálogo de Autos</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #eac766 0%, #a0a24b 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg,  #eac766 0%, #a0a24b 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .filters {
-            background: #f8f9fa;
-            padding: 30px;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .filters h2 {
-            color: #495057;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .filter-group select {
-            padding: 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .filter-group select:disabled {
-            background: #e9ecef;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .filter-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #c82333;
-        }
-
-        .results-info {
-            color: #6c757d;
-            font-size: 0.95rem;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            padding: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        tbody tr {
-            transition: background 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background: #f8f9fa;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .badge-hp {
-            background: #e7f3ff;
-            color: #0066cc;
-        }
-
-        .price {
-            font-weight: 700;
-            color: #28a745;
-        }
-
-        .price-stg3 {
-            color: #764ba2;
-        }
-
-        .consultar {
-            font-weight: 600;
-            color: #fd7e14;
-            font-style: italic;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
-            color: #6c757d;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px;
-            color: #6c757d;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .filter-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .table-container {
-                padding: 15px;
-            }
-
-            th, td {
-                padding: 10px 8px;
-                font-size: 0.85rem;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #eac766 0%, #a0a24b 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #eac766 0%, #a0a24b 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .filters { background: #f8f9fa; padding: 30px; border-bottom: 2px solid #e9ecef; }
+        .filters h2 { color: #495057; margin-bottom: 20px; font-size: 1.5rem; }
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .filter-group { display: flex; flex-direction: column; }
+        .filter-group label { font-weight: 600; color: #495057; margin-bottom: 8px; font-size: 0.9rem; }
+        .filter-group select { padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background: white; cursor: pointer; transition: all 0.3s ease; }
+        .filter-group select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .filter-group select:disabled { background: #e9ecef; cursor: not-allowed; opacity: 0.6; }
+        .filter-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-secondary { background: #dc3545; color: white; }
+        .btn-secondary:hover { background: #c82333; }
+        .results-info { color: #6c757d; font-size: 0.95rem; }
+        .table-container { overflow-x: auto; padding: 30px; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        th { padding: 15px 10px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+        td { padding: 15px 10px; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; }
+        tbody tr { transition: background 0.2s ease; cursor: pointer; }
+        tbody tr:hover { background: #f8f9fa; }
+        .badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .badge-hp { background: #e7f3ff; color: #0066cc; }
+        .price { font-weight: 700; color: #28a745; }
+        .price-stg3 { color: #764ba2; }
+        .consultar { font-weight: 600; color: #fd7e14; font-style: italic; }
+        .loading { text-align: center; padding: 60px; font-size: 1.2rem; color: #6c757d; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .no-results { text-align: center; padding: 60px; color: #6c757d; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+        .modal-content { background-color: white; margin: 2% auto; padding: 0; width: 95%; max-width: 1400px; border-radius: 15px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3); max-height: 90vh; overflow-y: auto; }
+        .modal-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px 30px; border-radius: 15px 15px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { margin: 0; font-size: 1.8rem; }
+        .close { color: white; font-size: 32px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+        .close:hover { transform: scale(1.2); }
+        .modal-body { padding: 30px; }
+        .calculator-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .features-section { background: #f8f9fa; padding: 25px; border-radius: 10px; }
+        .section-title { font-size: 1.3rem; color: #495057; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
+        .stage-selector { margin-bottom: 25px; }
+        .stage-selector label { display: block; font-weight: 600; color: #495057; margin-bottom: 10px; }
+        .stage-selector select { width: 100%; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .feature-checkbox { display: flex; align-items: center; padding: 12px; background: white; border: 2px solid #dee2e6; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .feature-checkbox:hover { border-color: #667eea; background: #f0f4ff; }
+        .feature-checkbox input { margin-right: 10px; width: 18px; height: 18px; cursor: pointer; }
+        .feature-checkbox label { cursor: pointer; font-weight: 500; flex: 1; }
+        .pricing-summary { background: white; padding: 25px; border-radius: 10px; border: 2px solid #667eea; position: sticky; top: 20px; }
+        .price-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e9ecef; }
+        .price-row.total { font-size: 1.5rem; font-weight: 700; color: #667eea; border-top: 3px solid #667eea; border-bottom: none; margin-top: 15px; padding-top: 15px; }
+        .price-label { font-weight: 600; color: #495057; }
+        .price-value { font-weight: 700; color: #28a745; }
+        .car-info { background: #e7f3ff; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        .car-info h3 { color: #0066cc; margin-bottom: 10px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .info-item { display: flex; justify-content: space-between; }
+        .info-label { font-weight: 600; color: #495057; }
+        .fuel-type-selector { margin-bottom: 25px; }
+        .fuel-type-selector label { display: block; font-weight: 600; color: #495057; margin-bottom: 10px; }
+        .fuel-options { display: flex; gap: 15px; }
+        .fuel-option { flex: 1; padding: 15px; border: 2px solid #dee2e6; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .fuel-option:hover { border-color: #667eea; background: #f0f4ff; }
+        .fuel-option.active { border-color: #667eea; background: #e7f3ff; }
+        .fuel-option input { display: none; }
+        @media (max-width: 1200px) { .calculator-grid { grid-template-columns: 1fr; } .pricing-summary { position: relative; top: 0; } }
     </style>
 </head>
 <body>
+
+   <div id="nav-container"></div>
+
+    <script type="module" src="./JS/menu.js"></script>
+
+    
     <div class="container">
         <div class="header">
-            <h1>🏎️ Catálogo de Autos - Franco Motorsport</h1>
+            <h1> Catálogo de Autos</h1>
             <p>Encuentra el auto perfecto con nuestros filtros avanzados</p>
         </div>
-
         <div class="filters">
             <h2>🔍 Filtros de Búsqueda</h2>
             <div class="filter-grid">
-                <div class="filter-group">
-                    <label for="marca">Marca</label>
-                    <select id="marca">
-                        <option value="">Todas las marcas</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="modelo">Modelo</label>
-                    <select id="modelo" disabled>
-                        <option value="">Selecciona una marca primero</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="motor">Motor</label>
-                    <select id="motor" disabled>
-                        <option value="">Selecciona un modelo primero</option>
-                    </select>
-                </div>
+                <div class="filter-group"><label for="marca">Marca</label><select id="marca"><option value="">Todas las marcas</option></select></div>
+                <div class="filter-group"><label for="modelo">Modelo</label><select id="modelo" disabled><option value="">Selecciona una marca primero</option></select></div>
+                <div class="filter-group"><label for="motor">Motor</label><select id="motor" disabled><option value="">Selecciona un modelo primero</option></select></div>
             </div>
             <div class="filter-actions">
-                <div class="results-info" id="results-info">
-                    Cargando datos...
-                </div>
-                <div>
-                    <button class="btn btn-secondary" id="clear-btn">Limpiar Filtros</button>
-                </div>
+                <div class="results-info" id="results-info">Cargando datos...</div>
+                <div><button class="btn btn-secondary" id="clear-btn">Limpiar Filtros</button></div>
             </div>
         </div>
-
         <div class="table-container">
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>Cargando catálogo de autos...</p>
-            </div>
-            <table id="cars-table" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Variante</th>
-                        <th>Motor</th>
-                        <th>HP Orig.</th>
-                        <th>HP Mod.</th>
-                        <th>Ganancia (STG1)</th>
-                        <th>STG1</th>
-                        <th>STG2</th>
-                        <th>STG3</th>
-                    </tr>
-                </thead>
-                <tbody id="cars-tbody">
-                </tbody>
+            <div id="loading" class="loading"><div class="spinner"></div><p>Cargando catálogo de autos...</p></div>
+            <table id="cars-table" style="display: none; ">
+                <thead><tr><th>Marca</th><th>Modelo</th><th>Variante</th><th>Motor</th><th>HP Orig.</th><th>HP Mod.</th><th>Ganancia</th><th>STG1</th><th>STG2</th><th>STG3</th></tr></thead>
+                <tbody id="cars-tbody"></tbody>
             </table>
-            <div id="no-results" class="no-results" style="display: none;">
-                <h3>😕 No se encontraron resultados</h3>
-                <p>Intenta con otros filtros</p>
+            <div id="no-results" class="no-results" style="display: none;"><h3>😕 No se encontraron resultados</h3><p>Intenta con otros filtros</p></div>
+        </div>
+    </div>
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title"></h2><span class="close">&times;</span></div>
+            <div class="modal-body">
+                <div class="car-info">
+                    <h3 id="car-name"></h3>
+                    <div class="info-grid">
+                        <div class="info-item"><span class="info-label">Motor:</span><span id="info-motor"></span></div>
+                        <div class="info-item"><span class="info-label">HP Original:</span><span id="info-hp-ori"></span></div>
+                        <div class="info-item"><span class="info-label">HP Modificado:</span><span style="color:#28a745;font-weight:700;" id="info-hp-mod"></span></div>
+                        <div class="info-item"><span class="info-label">Ganancia:</span><span style="color:#0066cc;font-weight:700;" id="info-gain"></span></div>
+                    </div>
+                </div>
+                <div class="calculator-grid">
+                    <div class="features-section">
+                        <div class="section-title">⚡ Seleccionar Stage</div>
+                        <div class="stage-selector">
+                            <label>Nivel de Potencia:</label>
+                            <select id="stage-select">
+                                <option value="sin_cambios">Sin cambios de potencia</option>
+                                <option value="stage1" selected>Stage 1</option>
+                                <option value="stage1_plus">Stage 1 Plus (+20%)</option>
+                                <option value="stage2">Stage 2</option>
+                                <option value="stage2_plus">Stage 2 Plus (+20%)</option>
+                                <option value="stage3">Stage 3 (+50%)</option>
+                                <option value="volver_stock">Volver a Stock (-50%)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="section-title">🔧 Características Adicionales</div>
+                        <div class="fuel-type-selector">
+                            <label>Tipo de Combustible:</label>
+                            <div class="fuel-options">
+                                <div class="fuel-option active" onclick="selectFuel('NAFTA')">
+                                    <input type="radio" name="fuel" value="NAFTA" checked>
+                                    <strong>⛽ NAFTA</strong>
+                                </div>
+                                <div class="fuel-option" onclick="selectFuel('DIESEL')">
+                                    <input type="radio" name="fuel" value="DIESEL">
+                                    <strong>🛢️ DIESEL</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="nafta-features">
+                            <h4 style="margin-bottom:15px;color:#495057;">Características NAFTA:</h4>
+                            <div class="features-grid">
+                                <div class="feature-checkbox"><input type="checkbox" id="decat" value="DECAT" onchange="calculate()"><label for="decat">DECAT</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="flaps" value="FLAPS_OFF" onchange="calculate()"><label for="flaps">FLAPS OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="startstop" value="START_STOP_OFF" onchange="calculate()"><label for="startstop">START-STOP</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="limitador" value="LIMITADOR_VELOCIDAD_OFF" onchange="calculate()"><label for="limitador">LIMITADOR VEL OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="popbang" value="POP_N_BANGS" onchange="calculate()"><label for="popbang">POP N BANGS</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="immo" value="IMMO_OFF" onchange="calculate()"><label for="immo">IMMO OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="coldstart" value="COLD_START_HEATING" onchange="calculate()"><label for="coldstart">COLD START HEATING</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="exhaust" value="EXHAUST_FLAP" onchange="calculate()"><label for="exhaust">EXHAUST FLAP</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="gpf" value="GPF_OFF" onchange="calculate()"><label for="gpf">GPF OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="secondair" value="SECOND_AIR_INJ_OFF" onchange="calculate()"><label for="secondair">SECOND AIR INJ OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="dtc" value="DTC_OFF" onchange="calculate()"><label for="dtc">DTC OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="tcu" value="TCU_TUNE_OVER_ECU" onchange="calculate()"><label for="tcu">TCU TUNE OVER ECU</label></div>
+                            </div>
+                        </div>
+
+                        <div id="diesel-features" style="display:none;">
+                            <h4 style="margin-bottom:15px;color:#495057;">Características DIESEL:</h4>
+                            <div class="features-grid">
+                                <div class="feature-checkbox"><input type="checkbox" id="egr" value="EGR_OFF" onchange="calculate()"><label for="egr">EGR OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="dpf" value="DPF_OFF" onchange="calculate()"><label for="dpf">DPF OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="scr" value="SCR_OFF" onchange="calculate()"><label for="scr">SCR OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="flaps-d" value="FLAPS_OFF" onchange="calculate()"><label for="flaps-d">FLAPS OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="maf" value="MAF_DELETE" onchange="calculate()"><label for="maf">MAF DELETE</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="startstop-d" value="START_STOP_OFF" onchange="calculate()"><label for="startstop-d">START/STOP OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="limitador-d" value="LIMITADOR_VELOCIDAD_OFF" onchange="calculate()"><label for="limitador-d">LIMITADOR VEL OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="launch-d" value="LAUNCH_CONTROL" onchange="calculate()"><label for="launch-d">LAUNCH CONTROL</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="immo-d" value="IMMO_OFF" onchange="calculate()"><label for="immo-d">IMMO OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="throttle-d" value="THROTTLE_BODY_OFF" onchange="calculate()"><label for="throttle-d">THROTTLE BODY OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="hardcut" value="HARD_CUT" onchange="calculate()"><label for="hardcut">HARD CUT</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="pedalbox-d" value="PEDAL_BOX" onchange="calculate()"><label for="pedalbox-d">PEDAL BOX</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="dtc-d" value="DTC_OFF" onchange="calculate()"><label for="dtc-d">DTC OFF</label></div>
+                                <div class="feature-checkbox"><input type="checkbox" id="tcu-d" value="TCU_TUNE_OVER_ECU" onchange="calculate()"><label for="tcu-d">TCU TUNE</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-summary">
+                        <div class="section-title">💰 Resumen de Precio</div>
+                        <div class="price-row">
+                            <span class="price-label">Base (Stage):</span>
+                            <span class="price-value" id="price-base">$0</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">Características:</span>
+                            <span class="price-value" id="price-features">$0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>TOTAL:</span>
+                            <span id="price-total">$0</span>
+                        </div>
+                        <div id="features-list" style="margin-top:20px;font-size:0.9rem;color:#6c757d;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="/JS/calculador.js"></script>
 
-    <script>
-        let allCars = [];
-        let filteredCars = [];
-
-        function formatPrice(price) {
-            if (price === null || price === undefined) {
-                return '<span class="consultar">Consultar</span>';
-            }
-            return '<span class="price">$' + Math.round(price).toLocaleString('es-AR') + '</span>';
-        }
-
-        function formatPriceStg3(price) {
-            if (price === null || price === undefined) {
-                return '<span class="consultar">Consultar</span>';
-            }
-            return '<span class="price price-stg3">$' + Math.round(price).toLocaleString('es-AR') + '</span>';
-        }
-
-        async function loadData() {
-            try {
-                const carsResponse = await fetch('/api/cars');
-                allCars = await carsResponse.json();
-                filteredCars = allCars;
-
-                // Poblar solo las marcas al inicio
-                const marcas = [...new Set(allCars.map(car => car.FABRICANTE))].sort();
-                populateSelect('marca', marcas, 'Todas las marcas');
-
-                displayCars(filteredCars);
-                updateResultsInfo();
-
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('loading').innerHTML = '<p style="color: #dc3545;">Error al cargar los datos</p>';
-            }
-        }
-
-        function populateSelect(id, options, defaultText) {
-            const select = document.getElementById(id);
-            select.innerHTML = `<option value="">${defaultText}</option>`;
-            options.forEach(option => {
-                const opt = document.createElement('option');
-                opt.value = option;
-                opt.textContent = option;
-                select.appendChild(opt);
-            });
-        }
-
-        function updateModelosSelect() {
-            const marca = document.getElementById('marca').value;
-            const modeloSelect = document.getElementById('modelo');
-            const motorSelect = document.getElementById('motor');
-
-            if (!marca) {
-                modeloSelect.disabled = true;
-                modeloSelect.innerHTML = '<option value="">Selecciona una marca primero</option>';
-                motorSelect.disabled = true;
-                motorSelect.innerHTML = '<option value="">Selecciona un modelo primero</option>';
-                return;
-            }
-
-            // Filtrar modelos por marca seleccionada
-            const modelos = [...new Set(
-                allCars
-                    .filter(car => car.FABRICANTE === marca)
-                    .map(car => car.MODELO)
-            )].sort();
-
-            populateSelect('modelo', modelos, 'Todos los modelos');
-            modeloSelect.disabled = false;
-
-            // Reset motor
-            motorSelect.disabled = true;
-            motorSelect.innerHTML = '<option value="">Selecciona un modelo primero</option>';
-        }
-
-        function updateMotoresSelect() {
-            const marca = document.getElementById('marca').value;
-            const modelo = document.getElementById('modelo').value;
-            const motorSelect = document.getElementById('motor');
-
-            if (!modelo) {
-                motorSelect.disabled = true;
-                motorSelect.innerHTML = '<option value="">Selecciona un modelo primero</option>';
-                return;
-            }
-
-            // Filtrar motores por marca y modelo seleccionados
-            const motores = [...new Set(
-                allCars
-                    .filter(car => car.FABRICANTE === marca && car.MODELO === modelo)
-                    .map(car => car.MOTOR)
-            )].sort();
-
-            populateSelect('motor', motores, 'Todos los motores');
-            motorSelect.disabled = false;
-        }
-
-        function displayCars(cars) {
-            const tbody = document.getElementById('cars-tbody');
-            const table = document.getElementById('cars-table');
-            const loading = document.getElementById('loading');
-            const noResults = document.getElementById('no-results');
-
-            loading.style.display = 'none';
-
-            if (cars.length === 0) {
-                table.style.display = 'none';
-                noResults.style.display = 'block';
-                return;
-            }
-
-            noResults.style.display = 'none';
-            table.style.display = 'table';
-
-            tbody.innerHTML = cars.map(car => `
-                <tr>
-                    <td><strong>${car.FABRICANTE}</strong></td>
-                    <td>${car.MODELO}</td>
-                    <td>${car.VARIANTE}</td>
-                    <td><strong>${car.MOTOR}</strong></td>
-                    <td>${car.ORI}</td>
-                    <td style="color: #28a745; font-weight: 600;">${car.MOD}</td>
-                    <td><span class="badge badge-hp">+${car.GAIN} HP</span></td>
-                    <td>${formatPrice(car.STG1)}</td>
-                    <td>${formatPrice(car.STG2)}</td>
-                    <td>${formatPriceStg3(car.STG3)}</td>
-                </tr>
-            `).join('');
-        }
-
-        function updateResultsInfo() {
-            const info = document.getElementById('results-info');
-            info.textContent = `Mostrando ${filteredCars.length} de ${allCars.length} resultados`;
-        }
-
-        function filterCars() {
-            const marca = document.getElementById('marca').value;
-            const modelo = document.getElementById('modelo').value;
-            const motor = document.getElementById('motor').value;
-
-            filteredCars = allCars.filter(car => {
-                if (marca && car.FABRICANTE !== marca) return false;
-                if (modelo && car.MODELO !== modelo) return false;
-                if (motor && car.MOTOR !== motor) return false;
-                return true;
-            });
-
-            displayCars(filteredCars);
-            updateResultsInfo();
-        }
-
-        function clearFilters() {
-            document.getElementById('marca').value = '';
-            document.getElementById('modelo').value = '';
-            document.getElementById('modelo').disabled = true;
-            document.getElementById('modelo').innerHTML = '<option value="">Selecciona una marca primero</option>';
-            document.getElementById('motor').value = '';
-            document.getElementById('motor').disabled = true;
-            document.getElementById('motor').innerHTML = '<option value="">Selecciona un modelo primero</option>';
-            
-            filteredCars = allCars;
-            displayCars(filteredCars);
-            updateResultsInfo();
-        }
-
-        // Event listeners
-        document.getElementById('marca').addEventListener('change', () => {
-            updateModelosSelect();
-            filterCars();
-        });
-
-        document.getElementById('modelo').addEventListener('change', () => {
-            updateMotoresSelect();
-            filterCars();
-        });
-
-        document.getElementById('motor').addEventListener('change', filterCars);
-        document.getElementById('clear-btn').addEventListener('click', clearFilters);
-
-        // Inicializar
-        loadData();
-    </script>
 </body>
 </html>
