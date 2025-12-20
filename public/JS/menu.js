@@ -40,7 +40,7 @@ navContainer.innerHTML = `
     <img src="../fotos/Logo franco op 2 final.png"
      alt="Logo"
      style="
-        height: clamp(90px, 50vw, 400px);
+        height: clamp(90px, 60vw, 400px);
         width: auto;
         object-fit: contain;
      ">
