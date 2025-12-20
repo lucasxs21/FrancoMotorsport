@@ -2,10 +2,17 @@ const navContainer = document.getElementById("nav-container");
 
 navContainer.innerHTML = `
 <nav style="
-    .main-nav {
+    /* CONTENEDOR DEL NAV */
+#nav-container {
+    position: relative;
+    z-index: 1000;
+}
+
+/* NAV */
+.main-nav {
     width: 100%;
     height: 120px;
-    background: #000;
+    background-color: #000; /* negro real */
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -19,7 +26,6 @@ navContainer.innerHTML = `
     max-height: 100px;
     width: auto;
     object-fit: contain;
-    cursor: pointer;
 }
 
 /* MOBILE */
