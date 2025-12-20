@@ -1,8 +1,8 @@
 {
   "name": "cars-catalog-serverless",
   "version": "1.0.0",
-  "description": "Catálogo de autos serverless para Vercel",
-  "main": "api/cars.js",
+  "type": "module",
+  "description": "Catálogo de autos serverless",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
@@ -12,8 +12,5 @@
   },
   "devDependencies": {
     "vercel": "^33.0.0"
-  },
-  "engines": {
-    "node": ">=18.x"
   }
 }
