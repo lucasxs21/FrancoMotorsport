@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Autos</title>
     <style>
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #eac766 0%, #a0a24b 100%); min-height: 100vh; padding: 20px; }
         .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden; }
@@ -75,6 +76,130 @@
         .fuel-option.active { border-color: #667eea; background: #e7f3ff; }
         .fuel-option input { display: none; }
         @media (max-width: 1200px) { .calculator-grid { grid-template-columns: 1fr; } .pricing-summary { position: relative; top: 0; } }
+
+        /* ===============================
+   RESPONSIVE – TABLET
+   =============================== */
+@media (max-width: 992px) {
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .filters {
+        padding: 20px;
+    }
+
+    .filter-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-summary {
+        position: relative;
+        top: 0;
+    }
+}
+
+/* ===============================
+   RESPONSIVE – MOBILE
+   =============================== */
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 12px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;
+    }
+
+    .filters h2 {
+        font-size: 1.2rem;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .table-container {
+        padding: 15px;
+    }
+
+    th, td {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+
+    /* Tabla scrolleable clara */
+    table {
+        min-width: 900px;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 98%;
+        margin: 5% auto;
+        max-height: 95vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fuel-options {
+        flex-direction: column;
+    }
+}
+
+/* ===============================
+   MOBILE MUY CHICO
+   =============================== */
+@media (max-width: 480px) {
+
+    .header h1 {
+        font-size: 1.4rem;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .price-row {
+        font-size: 0.9rem;
+    }
+
+    .price-row.total {
+        font-size: 1.2rem;
+    }
+}
+
     </style>
 </head>
 <body>
