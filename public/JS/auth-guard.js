@@ -9,7 +9,7 @@
     // Configuración
     const CONFIG = {
         API_URL: 'https://franco-motorsport.vercel.app/', // Cambiar en producción
-        LOGIN_PAGE: '/public/login.html',
+        LOGIN_PAGE: '/login.html',
         TOKEN_KEY: 'token',
         USER_KEY: 'usuario'
     };
