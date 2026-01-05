@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franco Motorsport - Autenticación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #d97706;
+            background: white;
+            border-bottom-color: #f59e0b;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        .btn.loading .spinner {
+            display: block;
+        }
+
+        .btn.loading .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏎️ Franco Motorsport</h1>
+            <p>Sistema de Gestión</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Iniciar Sesión</button>
+            <button class="tab" onclick="switchTab('registro')">Registrarse</button>
+        </div>
+
+        <div class="form-container">
+            <div id="message" class="message"></div>
+
+            <!-- Formulario de Login -->
+            <div id="login-form" class="form-section active">
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group password-toggle">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
+                    </div>
+                    <button type="submit" class="btn" id="login-btn">
+                        <span class="btn-text">Iniciar Sesión</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Formulario de Registro -->
+            <div id="registro-form" class="form-section">
+                <form onsubmit="handleRegistro(event)">
+                    <div class="form-group">
+                        <label for="registro-nombre">Nombre completo</label>
+                        <input type="text" id="registro-nombre" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registro-email">Email</label>
+                        <input type="email" id="registro-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group password-toggle">
+                        <label for="registro-password">Contraseña (mínimo 6 caracteres)</label>
+                        <input type="password" id="registro-password" placeholder="••••••••" required minlength="6">
+                        <button type="button" class="toggle-password" onclick="togglePassword('registro-password')">👁️</button>
+                    </div>
+                    <button type="submit" class="btn" id="registro-btn">
+                        <span class="btn-text">Registrarse</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 Franco Motorsport - Todos los derechos reservados
+        </div>
+    </div>
+
+    <script>
+        // Configuración - CAMBIAR ESTO POR TU URL DE VERCEL
+        const API_URL = 'http://localhost:3000'; // En desarrollo
+        // const API_URL = 'https://tu-proyecto.vercel.app'; // En producción
+
+        // Cambiar entre tabs
+        function switchTab(tab) {
+            // Actualizar tabs activas
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Actualizar formularios
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.getElementById(tab + '-form').classList.add('active');
+
+            // Limpiar mensaje
+            hideMessage();
+        }
+
+        // Toggle password visibility
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = event.target;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+
+        // Mostrar mensaje
+        function showMessage(text, type) {
+            const message = document.getElementById('message');
+            message.textContent = text;
+            message.className = `message ${type} show`;
+        }
+
+        // Ocultar mensaje
+        function hideMessage() {
+            const message = document.getElementById('message');
+            message.classList.remove('show');
+        }
+
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.classList.add('loading');
+            hideMessage();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Guardar token
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    
+                    showMessage('¡Login exitoso! Redirigiendo...', 'success');
+                    
+                    // Redirigir después de 1 segundo
+                    setTimeout(() => {
+                        window.location.href = '/public/index.html'; // Cambiar por tu página principal
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Error al iniciar sesión', 'error');
+                }
+            } catch (error) {
+                showMessage('Error de conexión. Intenta nuevamente.', 'error');
+                console.error('Error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('loading');
+            }
+        }
+
+        // Handle Registro
+        async function handleRegistro(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('registro-btn');
+            btn.disabled = true;
+            btn.classList.add('loading');
+            hideMessage();
+
+            const nombre = document.getElementById('registro-nombre').value;
+            const email = document.getElementById('registro-email').value;
+            const password = document.getElementById('registro-password').value;
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/registro`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('¡Registro exitoso! Ya puedes iniciar sesión.', 'success');
+                    
+                    // Limpiar formulario
+                    document.getElementById('registro-nombre').value = '';
+                    document.getElementById('registro-email').value = '';
+                    document.getElementById('registro-password').value = '';
+                    
+                    // Cambiar a tab de login después de 2 segundos
+                    setTimeout(() => {
+                        document.querySelector('.tab').click();
+                    }, 2000);
+                } else {
+                    showMessage(data.error || 'Error al registrarse', 'error');
+                }
+            } catch (error) {
+                showMessage('Error de conexión. Intenta nuevamente.', 'error');
+                console.error('Error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('loading');
+            }
+        }
+
+        // Verificar si ya está logueado al cargar la página
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                // Ya está logueado, redirigir
+                window.location.href = '/public/index.html';
+            }
+        });
+    </script>
+</body>
+</html>
