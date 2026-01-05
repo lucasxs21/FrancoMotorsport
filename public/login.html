@@ -312,7 +312,7 @@
 
     <script>
         // Configuración - CAMBIAR ESTO POR TU URL DE VERCEL
-        const API_URL = 'http://localhost:3000'; // En desarrollo
+        const API_URL = 'https://franco-motorsport.vercel.app/'; // En desarrollo
         // const API_URL = 'https://tu-proyecto.vercel.app'; // En producción
 
         // Cambiar entre tabs
@@ -387,8 +387,19 @@
                     showMessage('¡Login exitoso! Redirigiendo...', 'success');
                     
                     // Redirigir después de 1 segundo
+                    // setTimeout(() => {
+                    //     window.location.href = '/public/index.html'; // Cambiar por tu página principal
+                    // }, 1000);
+
                     setTimeout(() => {
-                        window.location.href = '/public/index.html'; // Cambiar por tu página principal
+                        const redirectTo = sessionStorage.getItem('redirect_after_login');
+                        
+                        if (redirectTo && redirectTo !== '/public/login.html') {
+                            sessionStorage.removeItem('redirect_after_login');
+                            window.location.href = redirectTo;
+                        } else {
+                            window.location.href = '/public/index.html';
+                        }
                     }, 1000);
                 } else {
                     showMessage(data.error || 'Error al iniciar sesión', 'error');
@@ -458,6 +469,25 @@
                 window.location.href = '/public/index.html';
             }
         });
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                // Verificar si hay una página para redirigir guardada
+                const redirectTo = sessionStorage.getItem('redirect_after_login');
+                
+                if (redirectTo && redirectTo !== '/public/login.html') {
+                    // Redirigir a la página que intentó acceder
+                    sessionStorage.removeItem('redirect_after_login');
+                    window.location.href = redirectTo;
+                } else {
+                    // Redirigir a la página principal por defecto
+                    window.location.href = '/public/index.html';
+                }
+            }
+        });
+
+          
+        
     </script>
 </body>
 </html>
